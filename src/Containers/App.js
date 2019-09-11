@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 
-const App = () => {
-  const [count, setCount] = useState(10);
+const App = (props) => {
+  const [count, setCount] = useState(props.count);
+  const [text, setText] = useState('');
 
   return (
     <div>
-      <p>The current count is {count}</p>
+      <p>The current {text || 'count'} is {count}</p>
       <button onClick={() => setCount(count + 1)} >+1</button>
       <button onClick={() => setCount(count - 1)} >-1</button>
-      <button onClick={() => setCount(0)} >Reset Count</button>
+      <button onClick={() => setCount(props.count)} >Reset Count</button>
+      <input value={text} onChange={(e) => setText(e.target.value)} />
     </div>
   )
+}
+
+App.defaultProps = {
+  count: 0
 }
 
 export default App;

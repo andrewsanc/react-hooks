@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const App = () => {
+  const [count, setCount] = useState(10);
+
+  const increment = () => {
+    setCount(count + 1);
+  }
+
   return (
     <div>
-      <h4>Hello World!</h4>
+      <p>The current count is {count}</p>
+      <button onClick={increment}>+1</button>
     </div>
   )
 }

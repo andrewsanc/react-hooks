@@ -22,13 +22,16 @@ import React, { useState } from 'react';
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
 
   const addNote = (e) => {
     e.preventDefault();
     setNotes([
-      ...notes, { title }
+      ...notes, 
+      { title, body },
     ]);
     setTitle('');
+    setBody('');
   }
 
   const removeNote = (title) => {
@@ -42,6 +45,7 @@ const App = () => {
         return (
           <div key={note.title}>
             <h3>{note.title}</h3>
+            <p>{note.body}</p>
             <button onClick={() => removeNote(note.title)}>x</button>
           </div>
         )
@@ -49,6 +53,7 @@ const App = () => {
       <p>Add note</p>
       <form onSubmit={addNote}>
         <input value={title} onChange={(e) => setTitle(e.target.value)} />
+        <textarea value={body} onChange={(e) => setBody(e.target.value)} />
         <button>Add Note</button>
       </form>
     </div>

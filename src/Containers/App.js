@@ -1,22 +1,58 @@
 import React, { useState } from 'react';
 
-const App = (props) => {
-  const [count, setCount] = useState(props.count);
-  const [text, setText] = useState('');
+// const App = (props) => {
+//   const [count, setCount] = useState(props.count);
+//   const [text, setText] = useState('');
+
+//   return (
+//     <div>
+//       <p>The current {text || 'count'} is {count}</p>
+//       <button onClick={() => setCount(count + 1)} >+1</button>
+//       <button onClick={() => setCount(count - 1)} >-1</button>
+//       <button onClick={() => setCount(props.count)} >Reset Count</button>
+//       <input value={text} onChange={(e) => setText(e.target.value)} />
+//     </div>
+//   )
+// }
+
+// App.defaultProps = {
+//   count: 0
+// }
+
+const App = () => {
+  const [notes, setNotes] = useState([]);
+  const [title, setTitle] = useState('');
+
+  const addNote = (e) => {
+    e.preventDefault();
+    setNotes([
+      ...notes, { title }
+    ]);
+    setTitle('');
+  }
+
+  const removeNote = (title) => {
+    setNotes(notes.filter(note => note.title !== title))
+  }
 
   return (
     <div>
-      <p>The current {text || 'count'} is {count}</p>
-      <button onClick={() => setCount(count + 1)} >+1</button>
-      <button onClick={() => setCount(count - 1)} >-1</button>
-      <button onClick={() => setCount(props.count)} >Reset Count</button>
-      <input value={text} onChange={(e) => setText(e.target.value)} />
+      <h1>Notes</h1>
+      {notes.map(note => {
+        return (
+          <div key={note.title}>
+            <h3>{note.title}</h3>
+            <button onClick={() => removeNote(note.title)}>x</button>
+          </div>
+        )
+      })}
+      <p>Add note</p>
+      <form onSubmit={addNote}>
+        <input value={title} onChange={(e) => setTitle(e.target.value)} />
+        <button>Add Note</button>
+      </form>
     </div>
   )
-}
-
-App.defaultProps = {
-  count: 0
 }
 
 export default App;
